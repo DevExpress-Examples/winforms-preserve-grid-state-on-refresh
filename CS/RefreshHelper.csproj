@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="15.0">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
@@ -98,43 +98,33 @@
   <ItemGroup>
     <Reference Include="DevExpress.Pdf.v13.1.Core">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\DevExpress.Pdf.v13.1.Core.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Office.v13.1.Core">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\DevExpress.Office.v13.1.Core.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Docs.v13.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\DevExpress.Docs.v13.1.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.RichEdit.v13.1.Core">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\DevExpress.RichEdit.v13.1.Core.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Printing.v13.1.Core">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\DevExpress.Printing.v13.1.Core.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Data.v13.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\DevExpress.Data.v13.1.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Utils.v13.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\DevExpress.Utils.v13.1.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.XtraEditors.v13.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\DevExpress.XtraEditors.v13.1.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.XtraPrinting.v13.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\DevExpress.XtraPrinting.v13.1.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.XtraGrid.v13.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\DevExpress.XtraGrid.v13.1.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
