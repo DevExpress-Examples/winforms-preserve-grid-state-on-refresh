@@ -1,26 +1,30 @@
-﻿Imports System
+Imports System
 Imports System.Collections
-Imports DevExpress.XtraGrid
-Imports DevExpress.Utils
 Imports DevExpress.XtraGrid.Columns
 Imports DevExpress.XtraGrid.Views.Grid
 
 Namespace DevExpress.XtraGrid.Helpers
+
     Public Class RefreshHelper
-        <Serializable> _
+
+        <Serializable>
         Public Structure RowInfo
+
             Public Id As Object
+
             Public level As Integer
         End Structure
 
         Private view As GridView
+
         Private keyFieldName As String
 
-        Private saveExpList_Renamed As ArrayList
+        Private saveExpListField As ArrayList
 
-        Private saveSelList_Renamed As ArrayList
+        Private saveSelListField As ArrayList
 
-        Private saveMasterRowsList_Renamed As ArrayList
+        Private saveMasterRowsListField As ArrayList
+
         Private visibleRowIndex As Integer = -1
 
         Public Sub New(ByVal view As GridView, ByVal keyFieldName As String)
@@ -28,38 +32,33 @@ Namespace DevExpress.XtraGrid.Helpers
             Me.keyFieldName = keyFieldName
         End Sub
 
-        Public ReadOnly Property SaveExpList() As ArrayList
+        Public ReadOnly Property SaveExpList As ArrayList
             Get
-                If saveExpList_Renamed Is Nothing Then
-                    saveExpList_Renamed = New ArrayList()
-                End If
-                Return saveExpList_Renamed
+                If saveExpListField Is Nothing Then saveExpListField = New ArrayList()
+                Return saveExpListField
             End Get
         End Property
 
-        Public ReadOnly Property SaveSelList() As ArrayList
+        Public ReadOnly Property SaveSelList As ArrayList
             Get
-                If saveSelList_Renamed Is Nothing Then
-                    saveSelList_Renamed = New ArrayList()
-                End If
-                Return saveSelList_Renamed
+                If saveSelListField Is Nothing Then saveSelListField = New ArrayList()
+                Return saveSelListField
             End Get
         End Property
 
-        Public ReadOnly Property SaveMasterRowsList() As ArrayList
+        Public ReadOnly Property SaveMasterRowsList As ArrayList
             Get
-                If saveMasterRowsList_Renamed Is Nothing Then
-                    saveMasterRowsList_Renamed = New ArrayList()
-                End If
-                Return saveMasterRowsList_Renamed
+                If saveMasterRowsListField Is Nothing Then saveMasterRowsListField = New ArrayList()
+                Return saveMasterRowsListField
             End Get
         End Property
 
         Protected Function FindParentRowHandle(ByVal rowInfo As RowInfo, ByVal rowHandle As Integer) As Integer
             Dim result As Integer = view.GetParentRowHandle(rowHandle)
-            Do While view.GetRowLevel(result) <> rowInfo.level
+            While view.GetRowLevel(result) <> rowInfo.level
                 result = view.GetParentRowHandle(result)
-            Loop
+            End While
+
             Return result
         End Function
 
@@ -74,10 +73,9 @@ Namespace DevExpress.XtraGrid.Helpers
         Protected Function GetRowHandleToSelect(ByVal rowInfo As RowInfo) As Integer
             Dim dataRowHandle As Integer = view.LocateByValue(0, view.Columns(keyFieldName), rowInfo.Id)
             If dataRowHandle <> GridControl.InvalidRowHandle Then
-                If view.GetRowLevel(dataRowHandle) <> rowInfo.level Then
-                    Return FindParentRowHandle(rowInfo, dataRowHandle)
-                End If
+                If view.GetRowLevel(dataRowHandle) <> rowInfo.level Then Return FindParentRowHandle(rowInfo, dataRowHandle)
             End If
+
             Return dataRowHandle
         End Function
 
@@ -93,33 +91,28 @@ Namespace DevExpress.XtraGrid.Helpers
             list.Clear()
             Dim column As GridColumn = view.Columns(keyFieldName)
             Dim rowInfo As RowInfo
-            Dim selectionArray() As Integer = view.GetSelectedRows()
+            Dim selectionArray As Integer() = view.GetSelectedRows()
             If selectionArray IsNot Nothing Then ' otherwise we have a single focused but not selected row
                 For i As Integer = 0 To selectionArray.Length - 1
                     Dim dataRowHandle As Integer = selectionArray(i)
                     rowInfo.level = view.GetRowLevel(dataRowHandle)
-                    If dataRowHandle < 0 Then ' group row
-                        dataRowHandle = view.GetDataRowHandleByGroupRowHandle(dataRowHandle)
-                    End If
+                    If dataRowHandle < 0 Then dataRowHandle = view.GetDataRowHandleByGroupRowHandle(dataRowHandle) ' group row
                     rowInfo.Id = view.GetRowCellValue(dataRowHandle, column)
                     list.Add(rowInfo)
-                Next i
+                Next
             End If
+
             rowInfo.Id = view.GetRowCellValue(view.FocusedRowHandle, column)
             rowInfo.level = view.GetRowLevel(view.FocusedRowHandle)
             list.Add(rowInfo)
         End Sub
 
         Public Sub SaveExpansionViewInfo(ByVal list As ArrayList)
-            If view.GroupedColumns.Count = 0 Then
-                Return
-            End If
+            If view.GroupedColumns.Count = 0 Then Return
             list.Clear()
             Dim column As GridColumn = view.Columns(keyFieldName)
             For i As Integer = -1 To Integer.MinValue + 1 Step -1
-                If Not view.IsValidRowHandle(i) Then
-                    Exit For
-                End If
+                If Not view.IsValidRowHandle(i) Then Exit For
                 If view.GetRowExpanded(i) Then
                     Dim rowInfo As RowInfo
                     Dim dataRowHandle As Integer = view.GetDataRowHandleByGroupRowHandle(i)
@@ -127,20 +120,16 @@ Namespace DevExpress.XtraGrid.Helpers
                     rowInfo.level = view.GetRowLevel(i)
                     list.Add(rowInfo)
                 End If
-            Next i
+            Next
         End Sub
 
         Public Sub SaveExpandedMasterRows(ByVal list As ArrayList)
-            If view.GridControl.Views.Count = 1 Then
-                Return
-            End If
+            If view.GridControl.Views.Count = 1 Then Return
             list.Clear()
             Dim column As GridColumn = view.Columns(keyFieldName)
             For i As Integer = 0 To view.DataRowCount - 1
-                If view.GetMasterRowExpanded(i) Then
-                    list.Add(view.GetRowCellValue(i, column))
-                End If
-            Next i
+                If view.GetMasterRowExpanded(i) Then list.Add(view.GetRowCellValue(i, column))
+            Next
         End Sub
 
         Public Sub SaveVisibleIndex()
@@ -157,23 +146,21 @@ Namespace DevExpress.XtraGrid.Helpers
             Try
                 view.ClearSelection()
                 For i As Integer = 0 To list.Count - 1
-                    SelectRowByRowInfo(DirectCast(list(i), RowInfo), i = list.Count - 1)
-                Next i
+                    SelectRowByRowInfo(CType(list(i), RowInfo), i = list.Count - 1)
+                Next
             Finally
                 view.EndSelection()
             End Try
         End Sub
 
         Public Sub LoadExpansionViewInfo(ByVal list As ArrayList)
-            If view.GroupedColumns.Count = 0 Then
-                Return
-            End If
+            If view.GroupedColumns.Count = 0 Then Return
             view.BeginUpdate()
             Try
                 view.CollapseAllGroups()
                 For Each info As RowInfo In list
                     ExpandRowByRowInfo(info)
-                Next info
+                Next
             Finally
                 view.EndUpdate()
             End Try
@@ -187,7 +174,7 @@ Namespace DevExpress.XtraGrid.Helpers
                 For i As Integer = 0 To list.Count - 1
                     Dim rowHandle As Integer = view.LocateByValue(0, column, list(i))
                     view.SetMasterRowExpanded(rowHandle, True)
-                Next i
+                Next
             Finally
                 view.EndUpdate()
             End Try
