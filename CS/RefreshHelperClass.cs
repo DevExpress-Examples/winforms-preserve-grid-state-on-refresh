@@ -51,7 +51,7 @@ namespace DevExpress.XtraGrid.Helpers {
 
 		protected int FindParentRowHandle(RowInfo rowInfo, int rowHandle) {
 			int result = view.GetParentRowHandle(rowHandle);
-			while(view.GetRowLevel(result) != rowInfo.level)
+			while(view.GetRowLevel(result) != rowInfo.level && view.IsValidRowHandle(result))
 				result = view.GetParentRowHandle(result);
 			return result;
 		}
