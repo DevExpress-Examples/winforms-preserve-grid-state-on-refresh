@@ -55,7 +55,7 @@ Namespace DevExpress.XtraGrid.Helpers
 
         Protected Function FindParentRowHandle(ByVal rowInfo As RowInfo, ByVal rowHandle As Integer) As Integer
             Dim result As Integer = view.GetParentRowHandle(rowHandle)
-            While view.GetRowLevel(result) <> rowInfo.level
+            While view.GetRowLevel(result) <> rowInfo.level AndAlso view.IsValidRowHandle(result)
                 result = view.GetParentRowHandle(result)
             End While
 
