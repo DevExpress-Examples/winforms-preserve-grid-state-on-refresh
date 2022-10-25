@@ -21,4 +21,4 @@ This example creates a helper class that allows you to save and restore the foll
 
 ## See Also
 
-- [How to preserve the expanded state of TreeList nodes when refreshing data](https://www.devexpress.com/Support/Center/p/A1249)
+- [How to: Save and Restore the Expanded State of Nodes](https://docs.devexpress.com/WindowsForms/403853/controls-and-libraries/tree-list/examples/nodes/how-to-save-and-restore-the-expanded-state-of-nodes-when-reloading-data)
