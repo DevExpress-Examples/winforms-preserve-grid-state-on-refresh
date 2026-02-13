@@ -26,7 +26,7 @@ This example creates a helper class that allows you to save and restore the foll
 - [How to: Save and Restore the Expanded State of Nodes](https://docs.devexpress.com/WindowsForms/403853/controls-and-libraries/tree-list/examples/nodes/how-to-save-and-restore-the-expanded-state-of-nodes-when-reloading-data)
 - [Save and Restore Grid Layout](https://docs.devexpress.com/WindowsForms/772/controls-and-libraries/data-grid/save-and-restore-layout)
 <!-- feedback -->
-## Does this example address your development requirements/objectives?
+## Does This Example Address Your Development Requirements/Objectives?
 
 [<img src="https://www.devexpress.com/support/examples/i/yes-button.svg"/>](https://www.devexpress.com/support/examples/survey.xml?utm_source=github&utm_campaign=winforms-preserve-grid-state-on-refresh&~~~was_helpful=yes) [<img src="https://www.devexpress.com/support/examples/i/no-button.svg"/>](https://www.devexpress.com/support/examples/survey.xml?utm_source=github&utm_campaign=winforms-preserve-grid-state-on-refresh&~~~was_helpful=no)
 
